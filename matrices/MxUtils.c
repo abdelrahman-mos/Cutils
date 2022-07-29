@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "MxAlg.h"
 
-Matrix* createMatrix(int nRows, int nCols, MatFillType fillType) {
+Matrix* createMatrix(int nRows, int nCols, MatFillType fillType) 
+{
     int r, c; // row, column
     Matrix* ResMat; // result matrix
     ResMat = (Matrix*)malloc(sizeof(Matrix));
