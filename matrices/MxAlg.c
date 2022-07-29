@@ -18,7 +18,7 @@ Matrix* addMat(Matrix* mat1, Matrix* mat2)
     for (r = 0; r < ResMat->nRows; r++)
         for (c = 0; c < ResMat->nCols; c++)
             ResMat->pValues[r][c] = mat1->pValues[r][c] + mat2->pValues[r][c];
-    
+
     return ResMat;
 }
 
@@ -36,7 +36,7 @@ Matrix* subMat(Matrix* mat1, Matrix* mat2)
     for (r = 0; r < ResMat->nRows; r++)
         for (c = 0; c < ResMat->nCols; c++)
             ResMat->pValues[r][c] = mat1->pValues[r][c] - mat2->pValues[r][c];
-    
+
     return ResMat;
 }
 
@@ -53,7 +53,7 @@ Matrix* mulMat(Matrix* mat1, Matrix* mat2)
 
     ResMat = createMatrix(mat1->nRows, mat2->nCols, MFT_ZEROS);
     // n*m x m*z outputs a matrix of size n*z, we fill it with zeros to make it easier for the multiplication process
-    
+
     for (r = 0; r < ResMat->nRows; r++)
         for (c = 0; c < ResMat->nCols; c++)
             for (i = 0; i < mat1->nCols; i++)
@@ -84,14 +84,14 @@ double detMat(Matrix* matrix)
     char flag = 0;
     if (matrix->nCols != matrix->nRows)
     {
-        printf("Not a valid determinant!\n"); 
+        printf("Not a valid determinant!\n");
         exit(0);
     }
     else if (matrix->nRows == 2)
-        return (matrix->pValues[0][0] * matrix->pValues[1][1] - 
+        return (matrix->pValues[0][0] * matrix->pValues[1][1] -
             matrix->pValues[0][1] * matrix->pValues[1][0]);
-    
-    Recur = createMatrix(matrix->nRows, matrix->nCols, MFT_ZEROS);
+
+    Recur = createMatrix(matrix->nRows-1, matrix->nCols-1, MFT_ZEROS);
 
     if (matrix->nRows > 2)
     {
@@ -99,6 +99,7 @@ double detMat(Matrix* matrix)
         {
             for (r = 0; r < matrix->nRows - 1; r++)
             {
+                flag = 0;
                 for (k = 0; k < matrix->nCols; k++)
                 {
                     if (k == c)
