@@ -73,3 +73,51 @@ Matrix* transMat(Matrix* matrix)
             ResMat->pValues[r][c] = matrix->pValues[c][r];  // reverse column with row
     return ResMat;
 }
+
+double detMat(Matrix* matrix)
+{
+    // this is a recursive approach which seemed easier, another approaches can exist.
+    // if you find a better approach, don't hesitate to apply a pull request with its implementation!
+    double determinant = 0;
+    Matrix* Recur;     // matrix to be used in recursion calls
+    int r, c, k;
+    char flag = 0;
+    if (matrix->nCols != matrix->nRows)
+    {
+        printf("Not a valid determinant!\n"); 
+        exit(0);
+    }
+    else if (matrix->nRows == 2)
+        return (matrix->pValues[0][0] * matrix->pValues[1][1] - 
+            matrix->pValues[0][1] * matrix->pValues[1][0]);
+    
+    Recur = createMatrix(matrix->nRows, matrix->nCols, MFT_ZEROS);
+
+    if (matrix->nRows > 2)
+    {
+        for (c = 0; c < matrix->nCols; c++)
+        {
+            for (r = 0; r < matrix->nRows - 1; r++)
+            {
+                for (k = 0; k < matrix->nCols; k++)
+                {
+                    if (k == c)
+                    {
+                        k++;
+                        flag = 1;
+                    }
+                    if (flag == 0)
+                        Recur->pValues[r][k] = matrix->pValues[r+1][k];
+                    else
+                        Recur->pValues[r][k-1] = matrix->pValues[r+1][k];
+                }
+            }
+            if (c % 2 == 1)
+                determinant -= matrix->pValues[0][c]*detMat(Recur);
+            else
+                determinant += matrix->pValues[0][c]*detMat(Recur);
+        }
+    }
+    destroyMatrix(Recur);
+    return determinant;
+}

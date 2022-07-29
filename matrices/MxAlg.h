@@ -65,6 +65,7 @@ Matrix* transMat(Matrix* matrix);
 
 /*!
  * @param matrix pointer to matrix to which we want to calculate the determinant
+ * @brief Calculates the determinant of any n*n matrix (dimensions must match)
  * @return The determinant of the input matrix
 */
 double detMat(Matrix* matrix);
