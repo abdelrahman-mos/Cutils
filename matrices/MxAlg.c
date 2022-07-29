@@ -32,6 +32,8 @@ Matrix* createMatrix(int nRows, int nCols, MatFillType fillType) {
                 case MFT_IDENTITY: // fill identity
                     ResMat->pValues[r][c] = (r == c) ? 1 : 0;   // 1 if r == c, 0 else
                     break;
+                default:
+                    return ResMat;
                 }
             }
         }
