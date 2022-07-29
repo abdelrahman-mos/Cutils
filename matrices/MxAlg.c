@@ -40,3 +40,25 @@ Matrix* createMatrix(int nRows, int nCols, MatFillType fillType) {
     }
     return ResMat;
 }
+
+void destroyMatrix(Matrix* matrix) 
+{
+    int r;
+    for (r = 0; r < matrix->nRows; r++) 
+        free(matrix->pValues[r]);       // free each row
+    free(matrix->pValues);              // free the matrix
+    free(matrix);                       // free the struct
+}
+
+void printMatrix(Matrix* matrix)
+{
+    int r, c;
+    for (r = 0; r < matrix->nRows; r++) 
+    {
+        for (c = 0; c < matrix->nCols; c++) 
+        {
+            printf("%5.2lf\t", matrix->pValues[r][c]);
+        }
+        printf("\n");
+    }
+}
